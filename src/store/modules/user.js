@@ -1,6 +1,7 @@
-import { login, logout, getInfo } from '@/api/user'
+import { logup, login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import qs from 'qs'
 
 const getDefaultState = () => {
   return {
@@ -29,13 +30,43 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
+  logup({
+    commit
+  }, userInfo) {
+    const {
+      username,
+      password,
+      name,
+      email,
+      code
+    } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      logup(qs.stringify({
+        username,
+        password,
+        name,
+        email,
+        code
+      })).then(response => {
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  login({ commit }, userInfo) {
+    const { username, password, code, action } = userInfo
+    return new Promise((resolve, reject) => {
+      login(qs.stringify({
+        username,
+        password,
+        code,
+        action
+      })).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        commit('SET_TOKEN', data)
+        setToken(data)
         resolve()
       }).catch(error => {
         reject(error)
@@ -46,7 +77,8 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
+        console.log('getInfo', response)
         const { data } = response
 
         if (!data) {
