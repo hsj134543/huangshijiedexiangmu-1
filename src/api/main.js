@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getBugList(params) {
   return request({
-    url: '/vue-admin-template/table/list',
+    url: '/bug/get_list',
     method: 'get',
     params
   })

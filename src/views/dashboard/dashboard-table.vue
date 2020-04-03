@@ -5,24 +5,40 @@
       style="width: 100%"
     >
       <el-table-column
-        prop="date"
-        label="日期"
-        width="180"
-      />
-      <el-table-column
         prop="name"
-        label="姓名"
-        width="180"
+        label="漏洞名称"
       />
       <el-table-column
-        prop="address"
-        label="地址"
+        prop="create_time"
+        label="创建时间"
+      >
+        <template slot-scope="scope">
+          <span>{{ transformDate(scope.row.create_time) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="create_name"
+        label="创建人"
+      />
+      <el-table-column
+        prop="last_update_time"
+        label="最后更新时间"
+      >
+        <template slot-scope="scope">
+          <span>{{ transformDate(scope.row.last_update_time) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="last_update_name"
+        label="最后更新人"
       />
     </el-table>
   </div>
 </template>
 
 <script>
+import { format } from 'date-fns'
+
 export default {
   name: 'DashboardTable',
   props: {
@@ -35,6 +51,11 @@ export default {
   },
   data() {
     return {
+    }
+  },
+  methods: {
+    transformDate(unix) {
+      return format(unix * 1000, 'yyyy-MM-dd')
     }
   }
 }

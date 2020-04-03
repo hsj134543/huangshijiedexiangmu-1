@@ -25,6 +25,7 @@
 <script>
 import DashBoardTable from './dashboard-table'
 import ModifyBtn from './dashboard-modifybtn'
+import { getBugList } from '@/api/main'
 
 export default {
   name: 'Dashboard',
@@ -37,25 +38,16 @@ export default {
       drawer: false,
       tabs: ['漏洞信息修改页', '漏洞信息录入页', '漏洞报告优化页'],
       activeTab: 0,
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: []
     }
+  },
+  mounted() {
+    getBugList().then(res => {
+      // console.log('getBugList', res.data) // for debug
+      this.tableData = res.data.data
+    })
   }
+
 }
 </script>
 

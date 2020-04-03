@@ -204,7 +204,7 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          this.$message.error('登录失败')
           return false
         }
       })
@@ -233,7 +233,7 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          this.$message.error('注册失败')
           return false
         }
       })

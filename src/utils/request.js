@@ -16,7 +16,6 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
     // config.headers.post['Content-Type'] = 'multipart/form-data'
-    console.log('store.getters.token', store.getters.token)
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
