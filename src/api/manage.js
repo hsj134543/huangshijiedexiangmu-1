@@ -35,3 +35,12 @@ export function unlockUser(data) {
     data
   })
 }
+
+// 清除缓存
+export function clearAche(data) {
+  return request({
+    url: '/admin/clear_cache',
+    method: 'post',
+    data
+  })
+}

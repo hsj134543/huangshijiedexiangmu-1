@@ -8,3 +8,30 @@ export function getBugList(params) {
     params
   })
 }
+
+// 删除漏洞
+export function deleteBug(data) {
+  return request({
+    url: '/bug/del_bug',
+    method: 'post',
+    data
+  })
+}
+
+// 添加bug
+export function addBug(data) {
+  return request({
+    url: '/bug/add_bug',
+    method: 'post',
+    data
+  })
+}
+
+// 检查漏洞名称是否重复
+export function checkName(params) {
+  return request({
+    url: '/bug/check_name',
+    method: 'get',
+    params
+  })
+}
