@@ -86,9 +86,11 @@ const actions = {
 
         const {
           name,
+          username,
           type
         } = data
 
+        sessionStorage.setItem('username', username)
         commit('SET_NAME', name)
         commit('SET_AVATAR', type === 0 ? 'admin' : 'user')
         resolve(data)
@@ -105,6 +107,7 @@ const actions = {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')
+        sessionStorage.clear()
         resolve()
       }).catch(error => {
         reject(error)

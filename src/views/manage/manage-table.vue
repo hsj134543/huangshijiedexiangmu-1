@@ -21,13 +21,21 @@
       <el-table-column
         prop="do"
         label="操作"
-        width="100"
+        width="200"
       >
         <template slot-scope="scope">
           <el-button
             type="text"
             @click="handleValidUser(scope.row.uid)"
           >审核</el-button>
+          <el-button
+            type="text"
+            @click="handleLockUser(scope.row.uid)"
+          >锁定</el-button>
+          <el-button
+            type="text"
+            @click="handleUnlockUser(scope.row.uid)"
+          >解锁</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,7 +45,7 @@
 <script>
 import { format } from 'date-fns'
 import { types, statuss, userTableKeys } from './contacts'
-import { validUser } from '@/api/main'
+import { validUser, lockUser, unlockUser } from '@/api/manage'
 import qs from 'qs'
 
 export default {
@@ -59,6 +67,7 @@ export default {
   },
   methods: {
     handleValidUser(uid) {
+      // 管理员审核用户
       validUser(qs.stringify({
         uid
       })).then(res => {
@@ -67,6 +76,29 @@ export default {
         location.reload()
       })
     },
+
+    handleLockUser(uid) {
+      // 管理员锁定用户
+      lockUser(qs.stringify({
+        uid
+      })).then(res => {
+        // console.log('lockUser', res) // for debug
+        this.$message.success('锁定成功')
+        location.reload()
+      })
+    },
+
+    handleUnlockUser(uid) {
+      // 管理员解锁用户
+      unlockUser(qs.stringify({
+        uid
+      })).then(res => {
+        // console.log('unlockUser', res) // for debug
+        this.$message.success('解锁成功')
+        location.reload()
+      })
+    },
+
     getVal(prop, val) {
       switch (prop) {
         case 'type':
@@ -75,6 +107,7 @@ export default {
           return statuss[val]
       }
     },
+
     transformDate(unix) {
       return format(unix * 1000, 'yyyy-MM-dd')
     }

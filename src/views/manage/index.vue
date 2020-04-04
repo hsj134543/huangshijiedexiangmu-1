@@ -6,7 +6,7 @@
 
 <script>
 import ManageTable from './manage-table'
-import { getUserList } from '@/api/main'
+import { getUserList } from '@/api/manage'
 export default {
   components: {
     ManageTable

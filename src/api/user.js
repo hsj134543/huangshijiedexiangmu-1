@@ -29,3 +29,11 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function modifyPwd(data) {
+  return request({
+    url: '/user/change_password',
+    method: 'post',
+    data
+  })
+}

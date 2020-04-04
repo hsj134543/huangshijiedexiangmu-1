@@ -71,6 +71,20 @@ export const constantRoutes = [{
   ]
 },
 
+{
+  path: '/my',
+  component: Layout,
+  children: [{
+    path: 'my',
+    name: 'My',
+    component: () => import('@/views/my/index'),
+    meta: {
+      title: '我的主页',
+      icon: 'form'
+    }
+  }]
+},
+
 // {
 //   path: '/nested',
 //   component: Layout,
