@@ -80,7 +80,21 @@ export const constantRoutes = [{
     component: () => import('@/views/my/index'),
     meta: {
       title: '我的主页',
-      icon: 'form'
+      icon: 'password'
+    }
+  }]
+},
+
+{
+  path: '/upload',
+  component: Layout,
+  children: [{
+    path: 'upload',
+    name: 'Upload',
+    component: () => import('@/views/upload/index'),
+    meta: {
+      title: '文件上传',
+      icon: 'link'
     }
   }]
 },

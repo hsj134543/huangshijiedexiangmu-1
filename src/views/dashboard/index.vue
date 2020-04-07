@@ -16,10 +16,18 @@
           <el-input v-model="addBugForm.name" />
         </el-form-item>
         <el-form-item label="描述">
-          <el-input v-model="addBugForm.description" type="textarea" />
+          <el-input
+            v-model="addBugForm.description"
+            type="textarea"
+            autosize
+          />
         </el-form-item>
         <el-form-item label="方案">
-          <el-input v-model="addBugForm.repair_plan" type="textarea" />
+          <el-input
+            v-model="addBugForm.repair_plan"
+            type="textarea"
+            autosize
+          />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

@@ -27,6 +27,15 @@ export function addBug(data) {
   })
 }
 
+// 修改bug
+export function editBug(data) {
+  return request({
+    url: '/bug/edit_bug',
+    method: 'post',
+    data
+  })
+}
+
 // 检查漏洞名称是否重复
 export function checkName(params) {
   return request({
