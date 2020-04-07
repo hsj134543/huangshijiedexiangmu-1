@@ -48,7 +48,7 @@ const userTableKeys = [
   },
   {
     prop: 'reg_ip',
-    label: '注册时间',
+    label: '注册IP',
     type: 'text'
   },
   {
