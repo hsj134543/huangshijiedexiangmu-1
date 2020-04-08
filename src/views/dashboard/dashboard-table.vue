@@ -5,6 +5,14 @@
       style="width: 100%"
     >
       <el-table-column
+        prop="name"
+        label="漏洞名称"
+      >
+        <template slot-scope="scope">
+          <div style="cursor: pointer" @click="goToBugDetail(scope.row.id)">{{ scope.row.name }}</div>
+        </template>
+      </el-table-column>
+      <el-table-column
         v-for="(item, idx) of bugTableKeys"
         :key="idx"
         :prop="item.prop"
@@ -71,7 +79,7 @@
 <script>
 import { format } from 'date-fns'
 import { bugTableKeys } from './contacts'
-import { deleteBug, editBug } from '@/api/main'
+import { deleteBug, editBug, bugDetail } from '@/api/main'
 import qs from 'qs'
 
 export default {
@@ -97,15 +105,28 @@ export default {
     }
   },
   methods: {
+    goToBugDetail(id) {
+      // 跳转到漏洞详情页
+      this.$router.push({ name: 'BugDetail', params: { id }})
+    },
+
     openEditBugDialog(row) {
-      const { id, name, description, repair_plan } = row
-      this.editBugDialog = true
-      this.editBugForm = {
-        id,
-        name,
-        description,
-        repair_plan
-      }
+      bugDetail({
+        id: row.id
+      }).then(res => {
+        // 获取漏洞详情
+        // console.log('bugDetail', res.data) // for debug
+        const { id, name, description, repair_plan } = res.data
+        this.editBugForm = {
+          id,
+          name,
+          description,
+          repair_plan
+        }
+        this.editBugDialog = true
+      }).catch(err => {
+        this.$message.error(err)
+      })
     },
 
     handleEditBug() {

@@ -99,6 +99,21 @@ export const constantRoutes = [{
   }]
 },
 
+{
+  path: '/bugdetail',
+  component: Layout,
+  children: [{
+    path: 'bugdetail',
+    name: 'BugDetail',
+    component: () => import('@/views/dashboard/bugdetail'),
+    meta: {
+      title: '漏洞详情页',
+      icon: 'form'
+    },
+    hidden: true
+  }]
+},
+
 // {
 //   path: '/nested',
 //   component: Layout,
