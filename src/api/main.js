@@ -36,10 +36,28 @@ export function editBug(data) {
   })
 }
 
-// 修改bug
+// bug详情页
 export function bugDetail(params) {
   return request({
     url: '/bug/get_detail',
+    method: 'get',
+    params
+  })
+}
+
+// 获取漏洞信息变更日志
+export function bugLogs(params) {
+  return request({
+    url: '/bug/get_edit_log',
+    method: 'get',
+    params
+  })
+}
+
+// 获取漏洞信息变更详情
+export function bugLogDetails(params) {
+  return request({
+    url: '/bug/get_edit_log_detail',
     method: 'get',
     params
   })

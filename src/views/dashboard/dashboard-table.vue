@@ -39,6 +39,10 @@
             type="text"
             @click="handleRemoveBug(scope.row.id, scope.row.name)"
           >删除漏洞</el-button>
+          <el-button
+            type="text"
+            @click="handleGetBugLogs(scope.row.id)"
+          >变更日志</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -73,13 +77,48 @@
         <el-button type="primary" @click="handleEditBug">确 定</el-button>
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="变更日志"
+      :visible.sync="bugLogsDialog"
+      width="30%"
+    >
+      <el-table
+        :data="bugLogs"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="edit_name"
+          label="修改人"
+        />
+        <el-table-column
+          prop="create_time"
+          label="修改时间"
+        >
+          <template slot-scope="scope">
+            <span>{{ transformDate(scope.row.create_time) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="id"
+          label="修改内容"
+        >
+          <template slot-scope="scope">
+            <div style="cursor: pointer" @click="getLogDetails(scope.row.id)">修改内容</div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="bugLogsDialog = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { format } from 'date-fns'
 import { bugTableKeys } from './contacts'
-import { deleteBug, editBug, bugDetail } from '@/api/main'
+import { deleteBug, editBug, bugDetail, bugLogs, bugLogDetails } from '@/api/main'
 import qs from 'qs'
 
 export default {
@@ -96,6 +135,8 @@ export default {
     return {
       bugTableKeys,
       editBugDialog: false,
+      bugLogsDialog: false,
+      bugLogs: [],
       editBugForm: {
         id: '',
         name: '',
@@ -105,6 +146,33 @@ export default {
     }
   },
   methods: {
+    getLogDetails(id) {
+      // 获取变更详情
+      bugLogDetails({
+        log_id: id
+      }).then(res => {
+        // 获取漏洞详情
+        // console.log('getLogDetails', res.data) // for debug
+        alert('这个页面以后再做' + JSON.stringify(res.data))
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+
+    handleGetBugLogs(id) {
+      // 获取漏洞变更日志
+      bugLogs({
+        bug_id: id
+      }).then(res => {
+        // 获取漏洞详情
+        // console.log('bugLogs', res.data) // for debug
+        this.bugLogsDialog = true
+        this.bugLogs = res.data.data
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+
     goToBugDetail(id) {
       // 跳转到漏洞详情页
       this.$router.push({ name: 'BugDetail', params: { id }})
