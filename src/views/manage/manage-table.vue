@@ -13,7 +13,7 @@
       >
         <template slot-scope="scope">
           <span v-if="item.type == 'map'">{{ getVal(item.prop, scope.row[item.prop]) }}</span>
-          <span v-else-if="item.type == 'data'">{{ transformDate(scope.row[item.prop]) }}</span>
+          <span v-else-if="item.type == 'date'">{{ transformDate(scope.row[item.prop]) }}</span>
           <span v-else>{{ scope.row[item.prop] }}</span>
         </template>
       </el-table-column>

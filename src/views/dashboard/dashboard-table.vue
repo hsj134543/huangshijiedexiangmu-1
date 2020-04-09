@@ -20,7 +20,7 @@
         :width="item.width"
       >
         <template slot-scope="scope">
-          <span v-if="item.type == 'data'">{{ transformDate(scope.row[item.prop]) }}</span>
+          <span v-if="item.type == 'date'">{{ transformDate(scope.row[item.prop]) }}</span>
           <span v-else>{{ scope.row[item.prop] }}</span>
         </template>
       </el-table-column>
