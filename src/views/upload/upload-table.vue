@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-table">
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="name" label="漏洞名称">
+      <el-table-column prop="name" label="文件名">
         <template slot-scope="scope">
           <div style="cursor: pointer" @click="goToBugDetail(scope.row.id)">{{ scope.row.name }}</div>
         </template>

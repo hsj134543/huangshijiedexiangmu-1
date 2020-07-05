@@ -71,3 +71,12 @@ export function checkName(params) {
     params
   })
 }
+
+// 获取用户文件列表
+export function getUserFileList(params) {
+  return request({
+    url: '/user_file/get_list',
+    method: 'get',
+    params
+  })
+}
